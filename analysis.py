@@ -5,7 +5,7 @@ import seaborn as sns
 
 # Load dataset
 dataframe = pd.read_csv("Zomato-data-.csv")
-print("Columns available:", dataframe.columns)   # ✅ helps check exact names
+print("Columns available:", dataframe.columns) 
 print(dataframe.head())
 
 # Clean 'rate' column
@@ -15,13 +15,13 @@ def handleRate(value):
     try:
         return float(value)
     except:
-        return np.nan   # handle cases like "NEW" or "nan"
+        return np.nan
 
 dataframe['rate'] = dataframe['rate'].apply(handleRate)
 print(dataframe.head())
 dataframe.info()
 
-# -----------------------------
+
 # Type of Restaurant
 plt.figure(figsize=(8,5))
 sns.countplot(x=dataframe['listed_in(type)'])
@@ -30,7 +30,6 @@ plt.xticks(rotation=45)
 plt.title("Count of Restaurant Types")
 plt.show()
 
-# -----------------------------
 # Votes by Restaurant Type
 grouped = dataframe.groupby('listed_in(type)')['votes'].sum()
 result = pd.DataFrame({'votes': grouped})
@@ -42,17 +41,16 @@ plt.title("Votes by Restaurant Type")
 plt.xticks(rotation=45)
 plt.show()
 
-# -----------------------------
 # Ratings Distribution
 plt.figure(figsize=(8,5))
-plt.hist(dataframe['rate'], bins=5, color="skyblue", edgecolor="black")
+plt.hist(dataframe['rate'], bins=5, color="blue", edgecolor="black")
 plt.title("Ratings Distribution")
 plt.xlabel("Ratings")
 plt.ylabel("Frequency")
 plt.show()
 
 plt.figure(figsize=(8,5))
-data = dataframe['approx_cost(for two people)']   # ✅ fixed column name
+data = dataframe['approx_cost(for two people)']   
 sns.countplot(x=data)
 plt.title("Approx Cost for 2 People")
 plt.show()
